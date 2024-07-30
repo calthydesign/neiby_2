@@ -58,25 +58,26 @@
         </div>
         
         <div class="mt-6 p-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <h2>いますぐ専門家に相談したい</h2>
-            <p>→<a href="https://www.google.co.jp/maps/search/%E9%8D%BC%E7%81%B8%E5%B8%AB/" class="text-blue-500 underline">お近くの鍼灸師検索</a></p>
-            <p>→<a href="#" class="text-blue-500 underline">よもぎ先生にオンライン相談</a></p>
+            <h2 class="font-bold">いますぐ専門家に相談したい</h2>
+            <p>→<a href="https://www.google.co.jp/maps/search/%E9%8D%BC%E7%81%B8%E5%B8%AB/" target="_blank" class="text-blue-500 underline">お近くの鍼灸師検索</a></p>
+            <p>→<a href="#" class="text-blue-500 underline" target="_blank">よもぎ先生にオンライン相談</a></p>
         </div>
         
         <div class="mt-6 p-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <h2>自分の体調について知りたい、自分で改善してみたい</h2>
+            <h2 class="font-bold">自分の体調について知りたい、自分で改善してみたい</h2>
                 <p>→気血水の診断をして、体質に合った習慣を実践してみましょう！</p>
-                <div class="p-6 text-gray-900">
+                <div class="p-4 text-gray-900">
                     <a href="{{ route('diagnoses.index') }}" class="bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         {{ __('診断する') }}
                     </a>
                 </div>
-                <div class="p-6 text-gray-900">
+                <div class="p-4 text-gray-900">
                     <a href="{{ route('posts.index') }}" class="bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
                         {{ __('体質に合った習慣をみる') }}
                     </a>
                     <p class="text-sm mt-4">※診断をしていない場合は診断画面に移動します。</p>
                 </div>
+
         </div>
     </div>
 </x-app-layout>

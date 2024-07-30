@@ -1,18 +1,7 @@
     <!-- resources/views/posts.blade.php -->
-    <head>
-        <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
-    </head>
     <x-app-layout>
-        
-    
         <!--ヘッダー[START]-->
-        <x-slot name="header">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                <form action="{{ route('posts.index') }}" method="GET" class="w-full max-w-screen-md mx-auto">
-                    <x-button class="bg-gray-100 text-gray-900">{{ __('Dashboard') }}</x-button>
-                </form>
-            </h2>
-        </x-slot>
+        
         <!--ヘッダー[END]-->
                 
         <!-- バリデーションエラーの表示に使用-->
@@ -106,10 +95,31 @@
                 </form>
             </div>
             <!--上エリア[END]--> 
+            
+             <!-- モーダルのトリガーボタンを画面下部に固定 -->
+            <div class="fixed bottom-4 right-4">
+                <button id="open-modal" class="bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600 transition duration-200">よもぎ先生BOTに聞く</button>
+            </div>
+            
+            <!-- モーダル本体 -->
+            <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
+                <div class="bg-white rounded-lg p-6 w-full max-w-md sm:max-w-lg md:max-w-2xl">
+                    <h2 class="text-lg font-bold mb-4">よもぎ先生BOTに相談してみよう</h2>
+                    <div id="modal-content">
+                        <!-- chat.blade.phpの内容をここに挿入 -->
+                        @include('chat.create') <!-- chat.blade.phpをインクルード -->
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <button id="close-modal" class="bg-gray-300 text-gray-800 px-4 py-2 rounded">×</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
         
         
         <!--下側エリア[START]-->
-        <div class="text-gray-700 text-left bg-blue-100 px-4 py-2 m-2 w-full max-w-screen-md mx-auto">
+        <div class="text-gray-700 text-left bg-blue-100 px-4 py-2 m-2 w-full max-w-screen-md mx-auto z-10">
              <!-- カレンダー表示 -->
             <div id="calendar"></div>
             
@@ -129,6 +139,31 @@
         });
         calendar.render();
       });
+      
+      
+      //モーダル
+      document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('modal');
+        const openModalButton = document.getElementById('open-modal');
+        const closeModalButton = document.getElementById('close-modal');
+
+        // モーダルを開く
+        openModalButton.addEventListener('click', function() {
+            modal.classList.remove('hidden');
+        });
+
+        // モーダルを閉じる
+        closeModalButton.addEventListener('click', function() {
+            modal.classList.add('hidden');
+        });
+
+        // モーダルの外側をクリックしたときに閉じる
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
     
     </script>
     </x-app-layout>

@@ -7,6 +7,7 @@ use App\Http\Controllers\ConstructionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ChatController;
+use Illuminate\Http\Request;
 
 // ルートページ: ログイン状態によってリダイレクト
 Route::get('/', function () {
@@ -54,6 +55,6 @@ Route::middleware(['auth'])->group(function () {
 
 // チャット関連のルート
 Route::get('/chat', [ChatController::class, 'chat'])->name('chat.create');
-Route::post('/chat', [ChatController::class, 'chat'])->name('chat.post');
+Route::post('/chat', [ChatController::class, 'handleChat'])->name('chat.post');
 
 require __DIR__.'/auth.php';
