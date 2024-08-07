@@ -59,7 +59,7 @@
         
         <div class="mt-6 p-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <h2 class="font-bold">いますぐ専門家に相談したい</h2>
-            <p>→<a href="https://www.google.co.jp/maps/search/%E9%8D%BC%E7%81%B8%E5%B8%AB/" target="_blank" class="text-blue-500 underline">お近くの鍼灸師検索</a></p>
+            <p>→<a href="https://www.google.com/maps/search/鍼灸師/@?hl=ja" target="_blank" class="text-blue-500 underline">お近くの鍼灸師検索</a></p>
             <p>→<a href="#" class="text-blue-500 underline" target="_blank">よもぎ先生にオンライン相談</a></p>
         </div>
         
