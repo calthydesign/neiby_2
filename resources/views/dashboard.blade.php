@@ -31,22 +31,22 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Neiby ホーム') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <!--<div class="py-12">-->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("ログインしました。") }}
-                </div>
-            </div>
+    <!--        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">-->
+    <!--            <div class="p-6 text-gray-900">-->
+    <!--               }-->
+    <!--            </div>-->
+    <!--        </div>-->
             
         <!--説明スライド-->
-        <div class="my-4">
-            <p>アプリの説明は<a href="https://www.canva.com/design/DAGKKp9FRpM/XHM6Nq4_AWPrwo2EXMrlRg/view?utm_content=DAGKKp9FRpM&utm_campaign=designshare&utm_medium=link&utm_source=editor" class="text-blue-500 underline">こちら</a></p>
-        </div>
+    <!--    <div class="my-4">-->
+    <!--        <p>アプリの説明は<a href="https://www.canva.com/design/DAGKKp9FRpM/XHM6Nq4_AWPrwo2EXMrlRg/view?utm_content=DAGKKp9FRpM&utm_campaign=designshare&utm_medium=link&utm_source=editor" class="text-blue-500 underline">こちら</a></p>-->
+    <!--    </div>-->
         
         <!--よもぎAIBOT-->
         <div class="m-8 p-4 bg-white rounded-xl">

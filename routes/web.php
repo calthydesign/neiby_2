@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ChatController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\RecordController;
 
 // ルートページ: ログイン状態によってリダイレクト
 Route::get('/', function () {
@@ -56,5 +57,8 @@ Route::middleware(['auth'])->group(function () {
 // チャット関連のルート
 Route::get('/chat', [ChatController::class, 'chat'])->name('chat.create');
 Route::post('/chat', [ChatController::class, 'handleChat'])->name('chat.post');
+
+//レコード表示
+Route::get('/record', [RecordController::class, 'index'])->name('record');
 
 require __DIR__.'/auth.php';

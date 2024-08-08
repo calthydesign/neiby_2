@@ -18,7 +18,7 @@
         <!-- バリデーションエラーの表示に使用-->
         
         <!--全エリア[START]-->
-        <div class="flex flex-col bg-gray-100">
+        <div class="flex flex-col bg-gray-100 mb-12">
     
             <!-- 上エリア[START]--> 
                 <!-- 体質別コンテンツの挿入[START] -->
@@ -81,10 +81,6 @@
                     <!-- タグ送信のための隠しフィールド -->
                     <input type="hidden" name="selected_tags" id="selected_tags" value="">
                     
-                    <!-- デバッグ用 -->
-                    <!--<div>-->
-                    <!--    <p class="my-4">Selected Tags: <span id="debugTags"></span></p>-->
-                    <!--</div>-->
                 
                     <!-- 送信ボタン -->
                     <div class="flex justify-center">
@@ -119,28 +115,12 @@
         
         
         <!--下側エリア[START]-->
-        <div class="text-gray-700 text-left bg-blue-100 px-4 py-2 m-2 w-full max-w-screen-md mx-auto z-10">
-             <!-- カレンダー表示 -->
-            <div id="calendar"></div>
-            
-        </div>
+        
         <!--下側エリア[[END]-->       
     
     </div>
      <!--全エリア[END]-->
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     <script>
-        //カレンダー表示
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          events: @json($events)
-        });
-        calendar.render();
-      });
-      
-      
       //モーダル
       document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('modal');
