@@ -93,7 +93,7 @@
             <!--上エリア[END]--> 
             
              <!-- モーダルのトリガーボタンを画面下部に固定 -->
-            <div class="fixed bottom-4 right-4">
+            <div class="fixed bottom-20 right-4">
                 <button id="open-modal" class="bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600 transition duration-200">よもぎ先生BOTに聞く</button>
             </div>
             
