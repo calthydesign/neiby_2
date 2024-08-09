@@ -18,7 +18,7 @@
         <!-- バリデーションエラーの表示に使用-->
         
         <!--全エリア[START]-->
-        <div class="flex flex-col bg-gray-100 mb-12">
+        <div class="flex flex-col bg-gray-100 mb-20">
     
             <!-- 上エリア[START]--> 
                 <!-- 体質別コンテンツの挿入[START] -->

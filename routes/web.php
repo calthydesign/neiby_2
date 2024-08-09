@@ -18,6 +18,7 @@ Route::get('/', function () {
         return redirect()->route('login'); // ログインページにリダイレクト
     }
 })->name('home');
+Route::resource('posts', PostController::class);
 
 // ダッシュボード
 Route::get('/dashboard', function () {
@@ -45,7 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('posts')->name('posts.')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('index');
         Route::post('/', [PostController::class, 'store'])->name('store');
-        Route::get('/{post}/edit', [PostController::class, 'edit'])->name('edit');
+        Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
         Route::put('/{post}', [PostController::class, 'update'])->name('update');  // PUTメソッドに変更
         Route::delete('/{post}', [PostController::class, 'destroy'])->name('destroy');
     });

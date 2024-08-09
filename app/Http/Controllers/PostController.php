@@ -60,9 +60,12 @@ class PostController extends Controller
         // カレンダー用のイベントデータを作成
         $events = Post::where('user_id', Auth::id())->get()->map(function ($post) {
             return [
+                'id' => $post->id, // IDを追加
                 'title' => $post->condition,
                 'start' => $post->created_at->format('Y-m-d'),
-                'url' => route('posts.edit', $post->id)
+                'extendedProps' => [
+                    'description' => $post->memo, // 説明を追加
+                ],
             ];
         });
     

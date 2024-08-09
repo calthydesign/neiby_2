@@ -1,84 +1,49 @@
-<style>
-.fc-event {
-    cursor: pointer;
-}
-.fc-description {
-    font-size: 0.8em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-</style>
-
 <x-app-layout>
-    <!--ヘッダー[START]-->
-    
-    <!--ヘッダー[END]-->
-            
-    <!-- バリデーションエラーの表示に使用-->
-    <x-errors id="errors" class="bg-blue-950 rounded-lg">{{$errors}}</x-errors>
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <!-- バリデーションエラーの表示に使用-->
-    
-    <!--全エリア[START]-->
-    <div class="flex flex-col bg-gray-100 mb-12">
+    <head>
+        <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.jsの読み込み -->
+    </head>
+    <style>
+        .fc-event {
+            cursor: pointer;
+            pointer-events: auto; /* クリックを有効にする */
+        }
+        .fc-description {
+            font-size: 0.8em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
 
-        <!-- 上エリア[START]--> 
-        
+    <div class="flex flex-col bg-gray-100 mb-20">
         <div class="text-gray-700 text-left px-4 py-4 m-2 w-full max-w-screen-md mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-500 font-bold">
                     体調記録
                 </div>
             </div>
-            
-            <!-- カレンダー表示 -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-4">
                 <div class="p-6 bg-white border-b border-gray-500">
                     <div id="calendar"></div>
                 </div>
             </div>
-        </div>
-        <!--上エリア[END]--> 
-        
-        <!-- モーダルのトリガーボタンを画面下部に固定 -->
-        <div class="fixed bottom-20 right-4">
-            <button id="open-modal" class="bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600 transition duration-200">よもぎ先生BOTに聞く</button>
-        </div>
-        
-        <!-- モーダル本体 -->
-        <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden z-50">
-            <div class="bg-white rounded-lg p-6 w-full max-w-md sm:max-w-lg md:max-w-2xl">
-                <h2 class="text-lg font-bold mb-4">よもぎ先生BOTに相談してみよう</h2>
-                <div id="modal-content">
-                    <!-- chat.blade.phpの内容をここに挿入 -->
-                    @include('chat.create')
-                </div>
-                <div class="flex justify-end mt-4">
-                    <button id="close-modal" class="bg-gray-300 text-gray-800 px-4 py-2 rounded">×</button>
+            <!-- 折れ線グラフの表示エリア -->
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mt-4">
+                <div class="p-6 bg-white border-b border-gray-500">
+                    <canvas id="lineChart"></canvas> <!-- 折れ線グラフ用のキャンバス -->
                 </div>
             </div>
         </div>
-
     </div>
-    <!--全エリア[END]-->
 
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
     <script>
-        //カレンダー
-        document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var events = @json($events);  // PHPの配列をJavaScriptのオブジェクトに変換
         console.log(events);  // デバッグ用：コンソールでイベントデータを確認
-    
+
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             events: events,
@@ -86,34 +51,100 @@
                 return {
                     html: '<div class="fc-content">' +
                           '<span class="fc-title">' + arg.event.title + '</span>' +
-                          '<div class="fc-description">' + arg.event.extendedProps.description + '</div>' +
+                          '<div class="fc-description">' + (arg.event.extendedProps.description || '') + '</div>' +
                           '</div>'
                 };
+            },
+            eventClick: function(info) {
+                var eventId = info.event.id; // イベントのIDを取得
+                if (eventId) { // IDが存在する場合のみリダイレクト
+                    window.location.href = '/posts/edit/' + eventId; // 適切なURLに変更
+                } else {
+                    console.error('Event ID is not defined');
+                }
             }
         });
         calendar.render();
-    });
 
-        // モーダル
-        const modal = document.getElementById('modal');
-        const openModalButton = document.getElementById('open-modal');
-        const closeModalButton = document.getElementById('close-modal');
+        // 折れ線グラフのデータを準備
+        var labels = []; // 日付のラベル
+        var dataPoints = []; // データポイント
 
-        // モーダルを開く
-        openModalButton.addEventListener('click', function() {
-            modal.classList.remove('hidden');
+        // イベントからデータを抽出
+        events.forEach(event => {
+            var date = event.start; // 日付
+            var condition = event.title; // 体調
+
+            // 日付をラベルに追加
+            labels.push(date);
+
+            // 体調に応じたスコアを計算
+            var score = 0;
+            switch (condition) {
+                case '😄とてもよい':
+                    score = 2;
+                    break;
+                case '😊よい':
+                    score = 1;
+                    break;
+                case '🙂普通':
+                    score = 0;
+                    break;
+                case '😒イマイチ':
+                    score = -1;
+                    break;
+                case '😫悪い':
+                    score = -2;
+                    break;
+            }
+            dataPoints.push(score);
         });
 
-        // モーダルを閉じる
-        closeModalButton.addEventListener('click', function() {
-            modal.classList.add('hidden');
-        });
-
-        // モーダルの外側をクリックしたときに閉じる
-        modal.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.classList.add('hidden');
+        // 折れ線グラフを描画
+        var ctx = document.getElementById('lineChart').getContext('2d');
+        var lineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '体調の変化',
+                    data: dataPoints,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 2,
+                    fill: false // 塗りを無効にする
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                switch (value) {
+                                    case 2: return '😄';
+                                    case 1: return '😊';
+                                    case 0: return '🙂';
+                                    case -1: return '😒';
+                                    case -2: return '😫';
+                                    default: return '';
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: '体調'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: '日付'
+                        }
+                    }
+                }
             }
         });
-    </script>
+    });
+</script>
 </x-app-layout>

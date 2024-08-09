@@ -49,8 +49,10 @@
     <!--    </div>-->
         
         <!--よもぎAIBOT-->
-        <div class="m-8 p-4 bg-white rounded-xl">
-            <p>こんにちは！よもぎ先生です。<br>
+        <div class="m-8 p-4 bg-white rounded-xl flex flex-col sm:flex-row items-center">
+            <img src="{{ asset('images/yomogi-sensei1.png') }}" alt="よもぎ先生" class="w-24 h-auto rounded-full border-4 border-gray-100 mb-4 sm:mb-0"> <!-- スマホ用のマージンを追加 -->
+            <p class="mr-4">
+                こんにちは！よもぎ先生です。<br>
                 <span class="slide-in delay-0">このアプリは、東洋医学における「未病」改善を目指すサービスを提供しています。<br></span>
                 <span class="slide-in delay-2000">「病院に行っても問題ないけどずっと体調不良がある」「体質なのか不調があるけど諦めている」そんな方をサポートしていきます！<br></span>
                 <span class="slide-in delay-4000">はじめに、あなたはこれからどうしたいか教えてもらえますか？</span>
@@ -59,7 +61,7 @@
         
         <div class="mt-6 p-4 bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <h2 class="font-bold">いますぐ専門家に相談したい</h2>
-            <p>→<a href="https://www.google.com/maps/search/鍼灸師/@?hl=ja" target="_blank" class="text-blue-500 underline">お近くの鍼灸師検索</a></p>
+            <p>→<a href="https://www.google.com/maps/search/鍼灸師/@?hl=ja" target="_blank" class="text-blue-500 underline mb-2">お近くの鍼灸師検索</a></p>
             <p>→<a href="#" class="text-blue-500 underline" target="_blank">よもぎ先生にオンライン相談</a></p>
         </div>
         
