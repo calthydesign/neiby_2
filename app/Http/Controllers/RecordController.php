@@ -11,15 +11,16 @@ class RecordController extends Controller
     {
         $posts = Post::all(); // あなたのPostモデルを使用
     
-        $events = $posts->map(function ($post) {
-            return [
-                'title' => $post->condition, // 'condition'フィールドを使用
-                'start' => $post->created_at->toDateString(), // 日付のみを使用
-                'description' => $post->memo, // メモを説明として追加
-            ];
-        });
-        
-        // dd($events);
+        $events = Post::all()->map(function ($post) {
+        return [
+            'id' => $post->id,
+            'title' => $post->condition, // 体調のタイトル
+            'start' => $post->created_at->toISOString(), // 開始日時
+            'extendedProps' => [
+                'description' => $post->memo, // メモなどの追加情報
+            ],
+        ];
+    });
     
         return view('record', compact('events'));
     }

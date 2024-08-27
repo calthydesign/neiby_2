@@ -46,8 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('posts')->name('posts.')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('index');
         Route::post('/', [PostController::class, 'store'])->name('store');
-        Route::get('/posts/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
-        Route::put('/{post}', [PostController::class, 'update'])->name('update');  // PUTメソッドに変更
+        Route::get('/edit/{post}', [PostController::class, 'edit'])->name('edit'); // 修正
+        Route::put('/{post}', [PostController::class, 'update'])->name('update');
         Route::delete('/{post}', [PostController::class, 'destroy'])->name('destroy');
     });
 
