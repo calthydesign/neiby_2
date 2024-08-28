@@ -57,7 +57,7 @@ class ChatController extends Controller
     public function generateResponse($inputText, $constructionType) {
         $result = OpenAI::completions()->create([
             'model' => 'gpt-3.5-turbo-instruct',
-            'prompt' => '私は東洋医学の気血水のうちの' . $constructionType . 'の体質です。今の体調不良の内容を伝えます。' . $inputText . '。' . $constructionType . 'の私に合ったツボを３つほど、押し方や位置などを300字以内でわかりやすく教えてください。',
+            'prompt' => '私は東洋医学の気血水のうちの' . $constructionType . 'の体質です。今の体調不良の内容を伝えます。' . $inputText . '。' . $constructionType . 'の私に合った食べ物を３つ、ツボを１つ教えてください。300字以下の箇条書きにしてわかりやすく教えてください。',
             'temperature' => 0.8,
             'max_tokens' => 300,
         ]);

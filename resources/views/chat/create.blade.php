@@ -19,7 +19,9 @@
                     <p>処理中...</p>
                     <div class="loader"></div> <!-- ローディングアニメーション -->
                 </div>
-                <div id="chat-contents"></div>
+                <div id="chat-contents" class="overflow-y-auto h-64">
+                    <!-- チャット内容がここに入ります -->
+                </div>
             </div>
         </div>
     </div>
