@@ -1,6 +1,6 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-y-auto shadow-sm sm:rounded-lg">
                 <h1 class="my-4 text-l font-bold">よもぎ先生AIチャット</h1>
                 <p>気になる症状はありますか？</p>
                 <form id="chat-form">
@@ -19,7 +19,7 @@
                     <p>処理中...</p>
                     <div class="loader"></div> <!-- ローディングアニメーション -->
                 </div>
-                <div id="chat-contents" class="overflow-y-auto h-64">
+                <div id="chat-contents" class="h-128 overflow-y-auto">
                     <!-- チャット内容がここに入ります -->
                 </div>
             </div>

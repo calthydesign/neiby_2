@@ -24,19 +24,23 @@ class PostController extends Controller
         if ($user->construction === null) {
             return redirect()->route('diagnoses.index')->with('message', '診断を先に行ってください。');
         }
+    
+        // ユーザーの投稿を取得
         $posts = Post::where('user_id', Auth::user()->id)->orderBy('created_at', 'asc')->paginate(3);
-        
+    
+        // 天気情報の取得
         $apiKey = env('OPENWEATHER_API_KEY');
         $city = 'Tokyo';
         $url = "http://api.openweathermap.org/data/2.5/weather?q={$city}&appid={$apiKey}&units=metric&lang=ja";
-        
+    
         $client = new \GuzzleHttp\Client();
         $response = $client->request('GET', $url);
         $data = json_decode($response->getBody()->getContents(), true);
         $weather = $data['weather'][0]['description'];
-        
+    
+        // 構造の取得
         $constructionId = null;
-        
+    
         switch ($user->construction) {
             case 'kikyo':
                 $constructionId = 1;
@@ -54,11 +58,11 @@ class PostController extends Controller
                 $constructionId = 5;
                 break;
         }
-        
+    
         $construction = $constructionId ? Construction::find($constructionId) : null;
     
         // カレンダー用のイベントデータを作成
-        $events = Post::where('user_id', Auth::id())->get()->map(function ($post) {
+        $events = $posts->map(function ($post) {
             return [
                 'id' => $post->id, // IDを追加
                 'title' => $post->condition,
@@ -142,7 +146,7 @@ class PostController extends Controller
     
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::where('id', $id)->where('user_id', auth()->id())->firstOrFail();
         $selectedTags = explode(',', $post->selected_tags); // 保存されているタグを配列に変換
 
         $user = auth()->user();
@@ -203,7 +207,7 @@ class PostController extends Controller
         $post->selected_tags = $request->input('selected_tags', []);// タグの更新
         $post->save();
 
-        return redirect()->route('posts.index');
+        return redirect()->route('record');
     }
     /**
      * Remove the specified resource from storage.

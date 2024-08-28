@@ -87,7 +87,7 @@
                 </div>
             </form>
             <!--削除ボタンを追加 -->
-                <div class="flex justify-center mt-4">
+                <div class="flex justify-center mt-4 mb-12">
                     <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -100,26 +100,13 @@
         <!--上エリア[END]--> 
         
         <!--下側エリア[START]-->
-        <div class="text-gray-700 text-left bg-blue-100 px-4 py-2 m-2 w-full max-w-screen-md mx-auto">
-             <!-- カレンダー表示 -->
-            <div id="calendar" style="height: 600px;"></div>
-        </div>
+        
         <!--下側エリア[[END]-->       
     
     </div>
     <!--全エリア[END]-->
     
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          events: @json($events)
-        });
-        calendar.render();
-      });
-    </script>
+    
     
     <script>
 document.addEventListener('DOMContentLoaded', function() {

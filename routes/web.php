@@ -53,13 +53,15 @@ Route::middleware(['auth'])->group(function () {
 
     // 気血水のデータ表示
     Route::get('/constructions/{id}', [ConstructionController::class, 'show'])->name('constructions.show');
-});
+    
+    // チャット関連のルート
+    Route::get('/chat', [ChatController::class, 'chat'])->name('chat.create');
+    Route::post('/chat', [ChatController::class, 'handleChat'])->name('chat.post');
+    
+    //レコード表示
+    Route::get('/record', [RecordController::class, 'index'])->name('record');
+    
+    });
 
-// チャット関連のルート
-Route::get('/chat', [ChatController::class, 'chat'])->name('chat.create');
-Route::post('/chat', [ChatController::class, 'handleChat'])->name('chat.post');
-
-//レコード表示
-Route::get('/record', [RecordController::class, 'index'])->name('record');
 
 require __DIR__.'/auth.php';

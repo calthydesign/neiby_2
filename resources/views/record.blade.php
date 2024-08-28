@@ -170,5 +170,6 @@
             });
         });
     
+    console.log(events);
     </script>
 </x-app-layout>
