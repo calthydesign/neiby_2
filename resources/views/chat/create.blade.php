@@ -19,7 +19,7 @@
                     <p>処理中...</p>
                     <div class="loader"></div> <!-- ローディングアニメーション -->
                 </div>
-                <div id="chat-contents" class="h-128 overflow-y-auto">
+                <div id="chat-contents" class="h-auto overflow-y-auto">
                     <!-- チャット内容がここに入ります -->
                 </div>
             </div>

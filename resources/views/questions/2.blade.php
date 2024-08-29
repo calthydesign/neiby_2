@@ -1,5 +1,5 @@
 <div class="flex flex-col px-2 py-2">
-<p class="mb-4">日常生活で当てはまりやすい症状をすべてお選びください</p>
+<p class="mb-4">日常生活で当てはまりやすい症状をすべてお選びください(2/6)</p>
 <div class="w-full md:w-1/1 mb-2 md:mb-0">
     <label class="inline-flex items-center">
         <input type="checkbox" name="symptoms[]" value="kikyo" class="form-checkbox h-5 w-5 text-blue-600">

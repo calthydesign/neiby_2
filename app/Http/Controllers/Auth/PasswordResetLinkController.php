@@ -13,6 +13,18 @@ class PasswordResetLinkController extends Controller
     /**
      * Display the password reset link request view.
      */
+     
+    protected function sendResetLinkEmail(Request $request)
+    {
+        $this->validate($request, ['email' => 'required|email']);
+    
+        // パスワードリセットリンクを送信
+        Password::sendResetLink($request->only('email'));
+    
+        return back()->with('status', 'パスワードリセットリンクを送信しました。');
+    }
+     
+     
     public function create(): View
     {
         return view('auth.forgot-password');

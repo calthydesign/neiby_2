@@ -1,5 +1,5 @@
 <div class="flex flex-col px-2 py-2">
-    <p class="mb-4">腸やお腹について当てはまるものをすべてお選びください</p>
+    <p class="mb-4">腸やお腹について当てはまるものをすべてお選びください(5/6)</p>
     <!-- 診断項目 -->
     <div class="w-full md:w-1/1 mb-2 md:mb-0">
         <label class="inline-flex items-center">

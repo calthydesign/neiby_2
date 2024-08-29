@@ -29,6 +29,10 @@
                                 </div>
                                 <div class="slide" id="slide5">
                                     @include('questions.5')
+                                    <button type="button" class="next-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">次へ</button>
+                                </div>
+                                <div class="slide" id="slide6">
+                                    @include('questions.6')
                                 <button type="button" class="diagnose-btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">診断する</button>
                                 </div>
                             </div>
